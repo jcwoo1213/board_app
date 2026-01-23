@@ -3,7 +3,9 @@ const router = require("express").Router();
 const ctrl = require("../controllers/board.controller");
 
 //boards/메인 호출시
-router.get("/", ctrl.findAll);
+router.get("/pg/:page", ctrl.findAll);
+//boards/count 호출시
+router.get("/count", ctrl.getCount);
 //boards/id 하면 해당 글만
 router.get("/:id", ctrl.detail);
 // /create를 post로 호출시 create

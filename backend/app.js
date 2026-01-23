@@ -4,6 +4,8 @@ const app = express();
 const mysql = require("mysql2");
 const ctrl = require("./controllers/board.controller");
 const boardRoute = require("./routes/board.route");
+const cors = require("cors");
+app.use(cors());
 app.use(express.json()); //제이슨 데이터 처리
 app.listen(3000, () => {
   console.log("서버실행 http://localhost:3000");

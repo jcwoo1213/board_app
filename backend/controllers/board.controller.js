@@ -5,7 +5,7 @@ console.log(service);
 const ctrl = {
   //글 목록 전체
   findAll: async (req, res) => {
-    const rows = await service.findAll();
+    const rows = await service.findAll(req.params.page);
     if (rows) {
       res.json({ retCode: "OK", rows });
     } else {
@@ -14,12 +14,13 @@ const ctrl = {
   },
   //글생성
   create: async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const result = await service.create({
       title: req.body.title,
       content: req.body.content,
       writer: req.body.writer,
     });
+    console.log(result);
     if (result) {
       res.json({ retCode: "OK" });
     } else {
@@ -38,7 +39,7 @@ const ctrl = {
   },
   //수정
   update: async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
     const board = {
       id: req.params.id,
       title: req.body.title,
@@ -58,6 +59,15 @@ const ctrl = {
     const result = await service.findById(req.params.id);
     if (result) {
       res.json({ retCode: "OK", result });
+    } else {
+      res.json({ retCode: "NG" });
+    }
+  },
+  getCount: async (req, res) => {
+    const result = await service.getCount();
+    // console.log(result);
+    if (result.count > 0) {
+      res.json({ retCode: "OK", count: result.count });
     } else {
       res.json({ retCode: "NG" });
     }
